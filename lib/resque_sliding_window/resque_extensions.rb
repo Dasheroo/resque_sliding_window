@@ -1,6 +1,5 @@
 require 'resque'
-require 'resque_scheduler'
-require 'resque/scheduler'
+
 module ResqueSlidingWindow
   module SchedulerPatches
     def self.extended(base)
@@ -22,13 +21,13 @@ module ResqueSlidingWindow
 
     def delayed_timestamp_peek_with_rescue(timestamp, start, count)
       delayed_timestamp_peek_without_rescue timestamp, start, count
-    rescue Resque::Helpers::DecodeException => e
+    rescue Resque::Helpers::DecodeException
       []
     end
 
     def patched_decode(payload)
       decode payload
-    rescue Exception => e
+    rescue Exception
     end
   end
 end
